@@ -238,7 +238,7 @@ function App() {
 				</select>
 			</>
 			<div id="landmark">
-					<Card id='city' name={selectedLandmark} description={landmarkDescription}/>
+					<Card id='landmark' name={selectedLandmark} description={landmarkDescription}/>
 			</div>
 		</div>
 	</div>
