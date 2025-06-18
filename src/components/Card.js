@@ -3,10 +3,10 @@ import React from 'react'
 const Card = ({id,name, description}) => {
   return (
     <div>
-        <div id={`${id}-name`}>
+        <div id='state-name'>
             <h2>{name}</h2>
         </div>
-        <div id={`${id}-description`}>
+        <div id='state-decription'>
             <p>{description}</p>
         </div>
     </div>
