@@ -195,7 +195,7 @@ function App() {
 	return (
 	<div id="main">
 		<div className="selections_options">
-			<div>
+			<>
 				<label>State</label>
 				<select id='state' value={selectedState} onChange={handleState}>
 					{states.map((state) => (
@@ -204,14 +204,14 @@ function App() {
 						</option>
 					))}
 				</select>
-			</div>
+			</>
 			<div id="state">
 					<Card id='state' name={selectedState} description={stateDescription}/>
 			</div>
 
 			<br/>
 					{/*City Options */}
-			<div>
+			<>
 				<label>City:</label>
 				<select id='city' value={selectedCity} onChange={handleCity}>
 					{cityList.map((city) => (
@@ -220,23 +220,23 @@ function App() {
 						</option>
 					))}
 				</select>
-			</div>
+			</>
 			<div id="city">
 					<Card id='city' name={selectedCity} description={cityDescription}/>
 			</div>
 
 			<br/>
 					{/*Landmark Options */}
-			<div>
+			<>
 				<label>Landmark:</label>
-				<select id='city' value={selectedLandmark} onChange={handleLandmark}>
+				<select id='landmark' value={selectedLandmark} onChange={handleLandmark}>
 					{landmarkList.map((landmark) => (
 						<option key={landmark.name} value={landmark.name}>
 							{landmark.name}
 						</option>
 					))}
 				</select>
-			</div>
+			</>
 			<div id="landmark">
 					<Card id='city' name={selectedLandmark} description={landmarkDescription}/>
 			</div>
