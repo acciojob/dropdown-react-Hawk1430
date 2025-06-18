@@ -197,7 +197,7 @@ function App() {
 		<div className="selections_options">
 			<>
 				<label>State</label>
-				<select id=\'state' value={selectedState} onChange={handleState}>
+				<select id='state' value={selectedState} onChange={handleState}>
 					{states.map((state) => (
 						<option key={state.name} value={state.name}>
 							{state.name}
