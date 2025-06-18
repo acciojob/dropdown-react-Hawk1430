@@ -1,5 +1,6 @@
-import React, { useState,useReducer } from "react";
+import React, { useState,useReducer, useEffect } from "react";
 import "./../styles/App.css";
+import Card from "./Card";
 
 
 const states = [{
@@ -67,7 +68,7 @@ const states = [{
 			description:"Ideal for conduction major events",
 		}]
 	}]
-},{
+	},{
 	name : "Assam",
 	description:"Assam is a state in northeastern India known for its wildlife, archeological sites and tea plantations. ",
 	city :[{
@@ -101,7 +102,7 @@ const states = [{
 			description:"Central Market for Tezpur",
 		}]
 	}]
-},{
+	},{
 	name : "Bihar",
 	description:"Bihar is a state in East India, bordering Nepal. It is divided by the River Ganges, which floods its fertile plains. Important Buddhist pilgrimage sites include the Bodhi Tree in Bodhgaya's Mahabodhi Temple, under which the Buddha allegedly meditated.",
 	city :[{
@@ -138,12 +139,108 @@ const states = [{
 }];
 
 
-function App() 
-{
-	// Do not alter/remove main div
+function App() {
+	const [selectedState, setSelectedState] = useState('Madhya Pradesh');
+	const [selectedCity, setSelectedCity] = useState('Indore');
+	const [selectedLandmark, setSelectedLandmark] = useState('Mhow');
+	const [stateDescription, setStateDescription] = useState('');
+	const [cityDescription, setCityDescription] = useState('');
+	const [landmarkDescription, setLandmarkDescription] = useState('');
+
+	useEffect(()=>{
+		const foundState = states.find(state => state.name === selectedState);
+		if(foundState){
+			setStateDescription(foundState.description);
+			setSelectedCity(foundState.city[0].name);
+		}
+	},[selectedState])
+
+	useEffect(()=>{
+		const foundState = states.find(state => state.name === selectedState);
+		console.log(foundState)
+		const foundCity = foundState?.city.find(city => city.name === selectedCity);
+		if(foundCity){
+			setCityDescription(foundCity.description);
+			setSelectedLandmark(foundCity.landmarks[0].name);
+		}
+	}, [selectedCity, selectedState])
+
+	useEffect(() => {
+		const foundState = states.find(state => state.name === selectedState);
+		const foundCity = foundState?.city.find(city => city.name === selectedCity);
+		const foundLandmark = foundCity?.landmarks.find(l => l.name === selectedLandmark);
+		if (foundLandmark) {
+			setLandmarkDescription(foundLandmark.description);
+		}
+	}, [selectedLandmark, selectedCity, selectedState]);
+
+	// functions to handle change in selection
+	const handleState = (e) => {
+		setSelectedState(e.target.value);
+		setSelectedCity('');
+		setSelectedLandmark('');
+	}
+	const handleCity = (e) => {
+		setSelectedCity(e.target.value);
+		setSelectedLandmark('');
+	}
+	const handleLandmark = (e) => {
+		setSelectedLandmark(e.target.value);
+	}
+
+	// Dynamic City and Landmark List updates
+	const cityList  = states.find(s => s.name === selectedState)?.city || [];
+	const landmarkList = cityList.find(c => c.name === selectedCity)?.landmarks || [];
+
 	return (
 	<div id="main">
-		
+		<div className="selections_options">
+			<div>
+				<label>State</label>
+				<select id='state' value={selectedState} onChange={handleState}>
+					{states.map((state) => (
+						<option key={state.name} value={state.name}>
+							{state.name}
+						</option>
+					))}
+				</select>
+			</div>
+			<div id="state">
+					<Card id='state' name={selectedState} description={stateDescription}/>
+			</div>
+
+			<br/>
+					{/*City Options */}
+			<div>
+				<label>City:</label>
+				<select id='city' value={selectedCity} onChange={handleCity}>
+					{cityList.map((city) => (
+						<option key={city.name} value={city.name}>
+							{city.name}
+						</option>
+					))}
+				</select>
+			</div>
+			<div id="city">
+					<Card id='city' name={selectedCity} description={cityDescription}/>
+			</div>
+
+			<br/>
+					{/*Landmark Options */}
+			<div>
+				<label>Landmark:</label>
+				<select id='city' value={selectedLandmark} onChange={handleLandmark}>
+					{landmarkList.map((landmark) => (
+						<option key={landmark.name} value={landmark.name}>
+							{landmark.name}
+						</option>
+					))}
+				</select>
+			</div>
+			<div id="landmark">
+					<Card id='city' name={selectedLandmark} description={landmarkDescription}/>
+			</div>
+		</div>
 	</div>
 	);
 }
