@@ -6,7 +6,7 @@ const Card = ({id,name, description}) => {
         <div id='state-title'>
             <h2>{name}</h2>
         </div>
-        <div id='state-decription'>
+        <div id='state-description'>
             <p>{description}</p>
         </div>
     </div>
